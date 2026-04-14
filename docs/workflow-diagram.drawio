@@ -1,0 +1,55 @@
+<mxfile host="65bd71144e">
+    <diagram id="cognito-workflow" name="Cognito Workflow">
+        <mxGraphModel dx="912" dy="747" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Terraform Workflow - Cognito App Client (helloapp)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="20" width="760" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="terraformRoot" value="Terraform Root&#10;variables.tf / main.tf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="120" width="190" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="terraformModule" value="Module: cognito_app_client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="120" width="220" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontendApp" value="Frontend App&#10;(localhost / intranet callback URLs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="998" y="310" width="250" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="cognitoUserPool" value="Cognito User Pool" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#D13212;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cognito;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="120" width="78" height="78" as="geometry"/>
+                </mxCell>
+                <mxCell id="cognitoAppClient" value="Cognito App Client&#10;name: helloapp" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#D13212;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cognito;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="120" width="78" height="78" as="geometry"/>
+                </mxCell>
+                <mxCell id="hostedUiDomain" value="Hosted UI Domain&#10;abc-prod.auth.us-east-1.amazoncognito.com" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" parent="1" vertex="1">
+                    <mxGeometry x="920" y="120" width="78" height="78" as="geometry"/>
+                </mxCell>
+                <mxCell id="scopesNote" value="OAuth Scopes&#10;- uvwx_credential_data/uvwx_credential_data&#10;- aws.cognito.signin.user.admin&#10;- email / openid / phone / profile" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="300" width="330" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" value="1) terraform apply" style="endArrow=block;endFill=1;html=1;strokeWidth=2;" parent="1" source="terraformRoot" target="terraformModule" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" value="2) creates/updates" style="endArrow=block;endFill=1;html=1;strokeWidth=2;" parent="1" source="terraformModule" target="cognitoUserPool" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" value="3) app client in pool" style="endArrow=block;endFill=1;html=1;strokeWidth=2;" parent="1" source="cognitoUserPool" target="cognitoAppClient" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" value="4) hosted UI endpoint" style="endArrow=block;endFill=1;html=1;strokeWidth=2;" parent="1" source="cognitoAppClient" target="hostedUiDomain" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" value="6) login redirect" style="endArrow=block;endFill=1;html=1;strokeWidth=2;" parent="1" source="frontendApp" target="hostedUiDomain" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" value="7) tokens returned to callback URL" style="endArrow=block;endFill=1;html=1;strokeWidth=2;dashed=1;" parent="1" source="hostedUiDomain" target="frontendApp" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" value="5) scope config" style="endArrow=block;endFill=1;html=1;strokeWidth=2;dashed=1;" parent="1" source="terraformModule" target="scopesNote" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
