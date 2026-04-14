@@ -1,0 +1,23 @@
+aws_region   = "us-east-1"
+user_pool_id = "us-east-1_XXXXXXXXX"
+
+app_client_name = "helloapp"
+
+callback_urls = [
+  "http://localhost:4200/login",
+  "http://localhost:4200/silent-renew.html",
+  "https://intranet.int.abcd.fghi.uvwx.gov/HELLOAPP.Frontend/dev/helloapp-frontend/"
+]
+
+allowed_oauth_scopes = [
+  "uvwx_credential_data/uvwx_credential_data",
+  "aws.cognito.signin.user.admin",
+  "email",
+  "openid",
+  "phone",
+  "profile"
+]
+
+# Set true only if Terraform should create/manage the hosted UI domain.
+create_domain = false
+domain_prefix = "abc-prod"
