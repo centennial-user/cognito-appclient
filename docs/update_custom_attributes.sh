@@ -20,6 +20,7 @@ NAMES=(
 # Start with a clean output file.
 : > "$OUTPUT_FILE"
 
+# Emit schema blocks.
 for n in "${NAMES[@]}"; do
   cat >> "$OUTPUT_FILE" <<EOF
 schema {
@@ -37,4 +38,13 @@ schema {
 EOF
 done
 
-echo "Generated schema blocks in $OUTPUT_FILE"
+# Emit custom attribute key/value lines.
+cat >> "$OUTPUT_FILE" <<'EOF'
+# Custom attribute mappings
+EOF
+
+for n in "${NAMES[@]}"; do
+  echo "\"custom:${n}\" = \"${n}\"" >> "$OUTPUT_FILE"
+done
+
+echo "Generated schema blocks and mappings in $OUTPUT_FILE"
